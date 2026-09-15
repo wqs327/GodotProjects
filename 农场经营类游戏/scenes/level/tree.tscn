@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://doi42nnng73e"]
+
+[ext_resource type="Script" uid="uid://br3s1iopgj16n" path="res://scenes/level/tree.gd" id="1_eqwtg"]
+[ext_resource type="Shader" uid="uid://btgnpfmy8x3nc" path="res://scenes/level/flash.gdshader" id="2_gk3pd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_00m8s"]
+resource_local_to_scene = true
+shader = ExtResource("2_gk3pd")
+shader_parameter/progress = 0.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jsouh"]
+load_path = "res://.godot/imported/trees.png-b23d4ba6d5f0f08314a6096ceb04aa85.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00m8s"]
+size = Vector2(14, 20)
+
+[node name="Tree" type="StaticBody2D" unique_id=374575122 groups=["Trees"]]
+collision_mask = 0
+script = ExtResource("1_eqwtg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1965784825]
+material = SubResource("ShaderMaterial_00m8s")
+texture = SubResource("CompressedTexture2D_jsouh")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1429024090]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_00m8s")

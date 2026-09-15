@@ -1,0 +1,13 @@
+# Godot 4 的缓存目录（每个项目里都有，体积大且可自动重建，不用传）
+.godot/
+
+# Godot 3 的缓存目录（如果你用 Godot 3）
+.import/
+
+# 临时文件
+*.tmp
+*.translation
+
+# 系统文件
+Thumbs.db
+.DS_Store

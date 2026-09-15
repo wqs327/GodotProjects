@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://ed60lwykumhf"]
+
+[ext_resource type="Script" uid="uid://ciywd01lommnp" path="res://scenes/entities/player.gd" id="1_ucweq"]
+[ext_resource type="Texture2D" uid="uid://de5wf7al0hknv" path="res://graphics/characters/player.png" id="2_08t41"]
+[ext_resource type="Texture2D" uid="uid://dijla4pisrrw8" path="res://graphics/lights/main.png" id="3_1ie0h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_00m8s"]
+radius = 8.0
+height = 28.0
+
+[sub_resource type="Animation" id="Animation_1ie0h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+
+[sub_resource type="Animation" id="Animation_08t41"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+
+[sub_resource type="Animation" id="Animation_5u6hq"]
+resource_name = "jump"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
+[sub_resource type="Animation" id="Animation_42nxq"]
+resource_name = "run"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5u6hq"]
+_data = {
+&"RESET": SubResource("Animation_1ie0h"),
+&"idle": SubResource("Animation_08t41"),
+&"jump": SubResource("Animation_5u6hq"),
+&"run": SubResource("Animation_42nxq")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_08t41"]
+load_path = "res://.godot/imported/crosshair.png-f0205b0c1e6743ea913769b9d5b31592.ctex"
+
+[node name="Player" type="CharacterBody2D" unique_id=1959389782]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_ucweq")
+jump_strength = 400
+gravity = 1000
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1118758085]
+shape = SubResource("CapsuleShape2D_00m8s")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1681777717]
+zoom = Vector2(3, 3)
+
+[node name="ReloadTimer" type="Timer" parent="." unique_id=110536727]
+wait_time = 0.5
+one_shot = true
+
+[node name="Legs" type="Sprite2D" parent="." unique_id=1373507528]
+position = Vector2(0, -8)
+texture = ExtResource("2_08t41")
+hframes = 8
+vframes = 3
+frame = 16
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1478946813]
+root_node = NodePath("../Legs")
+libraries/ = SubResource("AnimationLibrary_5u6hq")
+autoplay = &"idle"
+
+[node name="Torso" type="Sprite2D" parent="." unique_id=1339822276]
+position = Vector2(0, -9)
+texture = ExtResource("2_08t41")
+hframes = 8
+vframes = 3
+
+[node name="Marker" type="Sprite2D" parent="." unique_id=912381064]
+scale = Vector2(0.5, 0.5)
+texture = SubResource("CompressedTexture2D_08t41")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1190789318]
+scale = Vector2(0.4, 0.38)
+texture = ExtResource("3_1ie0h")

@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://jolhvsfm1d1o"]
+
+[ext_resource type="Texture2D" uid="uid://vyr0ks75oxum" path="res://graphics/characters/drone.png" id="1_gs6nb"]
+[ext_resource type="Script" uid="uid://cqu8uq7o3bnde" path="res://scenes/entities/drone.gd" id="1_n87ok"]
+[ext_resource type="Texture2D" uid="uid://bav7n447bnsa5" path="res://graphics/fire/explosion.png" id="3_xcp44"]
+[ext_resource type="Texture2D" uid="uid://dijla4pisrrw8" path="res://graphics/lights/main.png" id="4_0tq5o"]
+[ext_resource type="AudioStream" uid="uid://dtnqyh7corvdx" path="res://audio/explosion.wav" id="5_6vf5s"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_00m8s"]
+radius = 7.0
+height = 14.0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_0tq5o"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_6vf5s"]
+parameter_name = "ColorParameter"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_in55t"]
+parameter_name = "Progress"
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_lvif6"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[sub_resource type="VisualShader" id="VisualShader_h0gm0"]
+mode = 1
+flags/light_only = false
+varyings/Color = "0,0"
+nodes/fragment/0/position = Vector2(640, 512)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_0tq5o")
+nodes/fragment/2/position = Vector2(-32, 560)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorParameter_6vf5s")
+nodes/fragment/3/position = Vector2(0, 336)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatParameter_in55t")
+nodes/fragment/4/position = Vector2(-16, 672)
+nodes/fragment/5/node = SubResource("VisualShaderNodeMix_lvif6")
+nodes/fragment/5/position = Vector2(400, 480)
+nodes/fragment/connections = PackedInt32Array(4, 0, 5, 2, 5, 0, 0, 0, 3, 0, 5, 0, 2, 0, 5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxefg"]
+shader = SubResource("VisualShader_h0gm0")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/Progress = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs6nb"]
+atlas = ExtResource("1_gs6nb")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n87ok"]
+atlas = ExtResource("1_gs6nb")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcp44"]
+atlas = ExtResource("1_gs6nb")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tq5o"]
+atlas = ExtResource("1_gs6nb")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_00m8s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gs6nb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n87ok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcp44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tq5o")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_00m8s"]
+radius = 90.52071
+
+[sub_resource type="Animation" id="Animation_6vf5s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExplosionSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.48]
+}
+
+[sub_resource type="Animation" id="Animation_in55t"]
+resource_name = "explode"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExplosionSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_lvif6"]
+resource_name = "red light"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.3, 1.2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lvif6"]
+_data = {
+&"RESET": SubResource("Animation_6vf5s"),
+&"explode": SubResource("Animation_in55t"),
+&"red light": SubResource("Animation_lvif6")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s5ne7"]
+radius = 12.0415945
+
+[node name="Drone" type="CharacterBody2D" unique_id=1708774268 groups=["Drones"]]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_n87ok")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=521553448]
+visible = false
+shape = SubResource("CapsuleShape2D_00m8s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=992337367]
+material = SubResource("ShaderMaterial_yxefg")
+sprite_frames = SubResource("SpriteFrames_00m8s")
+autoplay = "default"
+frame_progress = 0.048022047
+
+[node name="DetectionArea2D" type="Area2D" parent="." unique_id=1727105576]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D" unique_id=1954750607]
+shape = SubResource("CircleShape2D_00m8s")
+
+[node name="ExplosionSprite" type="Sprite2D" parent="." unique_id=175835074]
+visible = false
+texture = ExtResource("3_xcp44")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1043005212]
+libraries/ = SubResource("AnimationLibrary_lvif6")
+autoplay = &"red light"
+
+[node name="CollisionArea" type="Area2D" parent="." unique_id=714184451]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea" unique_id=1875514634]
+shape = SubResource("CircleShape2D_s5ne7")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1784323173]
+position = Vector2(-1.999999, 2.0000029)
+scale = Vector2(1.1999998, 0.9999997)
+color = Color(0.85490197, 0, 0, 1)
+energy = 1.48
+texture = ExtResource("4_0tq5o")
+texture_scale = 0.1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=795464188]
+stream = ExtResource("5_6vf5s")
+
+[connection signal="body_entered" from="DetectionArea2D" to="." method="_on_detection_area_2d_body_entered"]
+[connection signal="body_exited" from="DetectionArea2D" to="." method="_on_detection_area_2d_body_exited"]
+[connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
