@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://8s0ddql1ksxs"]
+
+[ext_resource type="Script" uid="uid://btji5cf5o1erh" path="res://scenes/monster_stats.gd" id="1_ch8vr"]
+[ext_resource type="Texture2D" uid="uid://c2grkj48me8y5" path="res://graphics/ui/frame.png" id="2_1kvfr"]
+[ext_resource type="FontFile" uid="uid://bcek40pkjo1em" path="res://graphics/fonts/PixelOperator-Bold.ttf" id="3_ht8ru"]
+[ext_resource type="Texture2D" uid="uid://d0we6vgwcxrjo" path="res://graphics/ui/progress_bg.png" id="4_ge8pu"]
+[ext_resource type="Texture2D" uid="uid://byvqt7pc52cfu" path="res://graphics/ui/progress_main.png" id="5_ojlje"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1kvfr"]
+
+[node name="MonsterStats" type="Control" unique_id=805462509]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_ch8vr")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1552665946]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1kvfr")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PanelContainer" unique_id=2001383294]
+layout_mode = 2
+texture = ExtResource("2_1kvfr")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=95442768]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1418582107]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=128263610]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ht8ru")
+theme_override_font_sizes/font_size = 30
+text = "monster"
+
+[node name="ProgressBar" type="TextureProgressBar" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=262785434]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+value = 20.0
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("4_ge8pu")
+texture_progress = ExtResource("5_ojlje")
+
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/ProgressBar" to="." method="_on_progress_bar_value_changed"]

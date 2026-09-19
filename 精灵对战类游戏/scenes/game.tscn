@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://dkc2fnj58xx18"]
+
+[ext_resource type="Script" uid="uid://da4b1cef28d8i" path="res://scenes/game.gd" id="1_p57ef"]
+[ext_resource type="Texture2D" uid="uid://ckr0isu4oe6rb" path="res://graphics/backgrounds/background1.png" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://e0jsnv0ayrfj" path="res://graphics/battle sprites/Cleaf.png" id="3_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://byfcq14dkcf4k" path="res://graphics/back sprites/Cindrill.png" id="3_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://c1k8lut3sh4gi" path="res://scenes/input_menu.tscn" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://8s0ddql1ksxs" path="res://scenes/monster_stats.tscn" id="5_p57ef"]
+[ext_resource type="Texture2D" uid="uid://46jp6dtde6vq" path="res://graphics/attack effects/claw.png" id="7_u5sy4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqjtg"]
+atlas = ExtResource("3_lnu2h")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="Animation" id="Animation_gee14"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation_index")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_0tnpc"]
+resource_name = "attack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_u5sy4"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation_index")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gee14"]
+_data = {
+&"RESET": SubResource("Animation_gee14"),
+&"attack": SubResource("Animation_0tnpc"),
+&"idle": SubResource("Animation_u5sy4")
+}
+
+[node name="Game" type="Control" unique_id=2083379905]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_p57ef")
+
+[node name="BG" type="TextureRect" parent="." unique_id=298454001]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_uwrxv")
+
+[node name="Monsters" type="Control" parent="." unique_id=104648200]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Player" type="TextureRect" parent="Monsters" unique_id=525607935]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 1.0
+anchor_right = 0.05
+anchor_bottom = 1.0
+grow_vertical = 0
+texture = ExtResource("3_u5sy4")
+
+[node name="Enemy" type="TextureRect" parent="Monsters" unique_id=1443865529]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.4
+anchor_right = 0.7
+anchor_bottom = 0.4
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_yqjtg")
+
+[node name="InputMenu" parent="." unique_id=909113290 instance=ExtResource("4_iywne")]
+layout_mode = 1
+mouse_filter = 0
+
+[node name="Stats" type="Control" parent="." unique_id=780240327]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PlayerStats" parent="Stats" unique_id=805462509 instance=ExtResource("5_p57ef")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.5
+anchor_right = 0.1
+anchor_bottom = 0.5
+
+[node name="EnemyStats" parent="Stats" unique_id=1237447366 instance=ExtResource("5_p57ef")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.2
+
+[node name="AttackSprite" type="Sprite2D" parent="." unique_id=580042258]
+position = Vector2(596, 421)
+scale = Vector2(4, 4)
+texture = ExtResource("7_u5sy4")
+hframes = 4
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2095744285]
+libraries/ = SubResource("AnimationLibrary_gee14")
+autoplay = &"idle"
+
+[node name="TurnTimer" type="Timer" parent="." unique_id=1033943054]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="selected" from="InputMenu" to="." method="_on_input_menu_selected"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]
