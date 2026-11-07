@@ -11,3 +11,6 @@
 # 系统文件
 Thumbs.db
 .DS_Store
+
+# Android 编辑器生成的媒体标记
+.nomedia
